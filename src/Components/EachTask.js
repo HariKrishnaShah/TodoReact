@@ -1,13 +1,23 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import SubTask from './SubTask';
 import TaskCounter from './TaskCounter';
 import { Accordion } from 'react-bootstrap';
 import { useState } from 'react';
+import taskcontext from '../Context/TaskContext';
 
 function EachTask({task, index, taskid}) {
+  const TaskStates = useContext(taskcontext);
     const[done, setDone] = useState(task.status === "completed"?true:false);
   const handlechange = (e)=>{
+    if(document.getElementById("status").checked === true)
+    {
+      TaskStates.triggerToast("Task updated as completed ");
+    }
+    else{
+      TaskStates.triggerToast("Task updated as pending ");
+    }
     setDone(e.checked);
+    
   }
   return (
     <Accordion.Item eventKey={index.toString()}>

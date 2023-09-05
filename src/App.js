@@ -16,7 +16,7 @@ function App() {
     <Container className='text-center'>
       <Row>
         <Col md={{ span: 6, offset: 3 }}><Title title = "TODO App" />
-        <AddTask Heading = "Add new Todo?" Placeholder = "E.g Do Laundary" ButtonName = "Add the Task" type = "task"/>
+        <AddTask key = "New" Heading = "Add new Todo?" Placeholder = "E.g Do Laundary" ButtonName = "Add the Task" type = "task"/>
         <ListTasks />
         <Alertbar Variant = "danger" Msg = "No Task Found" />
         </Col>

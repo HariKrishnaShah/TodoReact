@@ -2,7 +2,7 @@ import React, { useState} from 'react'
 import TaskContext from "./TaskContext";
 
 export default function TaskStates(props) {
-    const[toast, setToast] = useState({msg:"added clothes"});
+    const[toast, setToast] = useState();
     const[tasks, setTasks] = useState();
     //Toast
     let triggerToast = (msg)=>
@@ -11,7 +11,7 @@ export default function TaskStates(props) {
         setTimeout(
             ()=>{
                 setToast(null)
-            }, 3000
+            }, 1000
         );
     }
     let closeToast = ()=>{
