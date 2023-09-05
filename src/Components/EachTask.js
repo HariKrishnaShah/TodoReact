@@ -9,14 +9,14 @@ function EachTask({task, index, taskid}) {
   const TaskStates = useContext(taskcontext);
     const[done, setDone] = useState(task.status === "completed"?true:false);
   const handlechange = (e)=>{
-    if(document.getElementById("status").checked === true)
+    setDone(e.target.checked);
+    if(e.target.checked === true)
     {
       TaskStates.triggerToast("Task updated as completed ");
     }
     else{
       TaskStates.triggerToast("Task updated as pending ");
     }
-    setDone(e.checked);
     
   }
   return (

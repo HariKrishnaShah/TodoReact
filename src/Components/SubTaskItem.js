@@ -6,14 +6,14 @@ function SubTaskItem({status, title, subtaskid, taskid}) {
   const[done, setDone] = useState(status);
   const handlechange = (e)=>{
     console.log("The task and subtask id are " + taskid, subtaskid);
-    if(document.getElementById("substatus").checked === true)
+    setDone(e.target.checked);
+    if(e.target.checked === true)
     {
       TaskStates.triggerToast("Task updated as completed ");
     }
     else{
       TaskStates.triggerToast("Task updated as pending ");
     }
-    setDone(e.checked);
   }
   const handledelete = (subtaskid, taskid)=>{
     console.log("The task and subtask id are " + taskid, subtaskid);
