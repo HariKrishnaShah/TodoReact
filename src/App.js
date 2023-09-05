@@ -6,20 +6,25 @@ import Title from "./Components/Title"
 import AddTask from './Components/AddTask';
 import  Alertbar from './Components/Alertbar';
 import ListTasks from './Components/ListTasks';
+import TaskStates from './Context/TaskStates';
+import Toastalert from './Components/Toastalert';
 
 function App() {
   return (
     <>
+    <TaskStates>
     <Container className='text-center'>
       <Row>
         <Col md={{ span: 6, offset: 3 }}><Title title = "TODO App" />
-        <AddTask Heading = "Add new Todo?" Placeholder = "E.g Do Laundary" ButtonName = "Add the Task"/>
+        <AddTask Heading = "Add new Todo?" Placeholder = "E.g Do Laundary" ButtonName = "Add the Task" type = "task"/>
         <ListTasks />
         <Alertbar Variant = "danger" Msg = "No Task Found" />
-        
         </Col>
+        <Toastalert />
+
       </Row>
     </Container>
+    </TaskStates>
     </>
   );
 }
