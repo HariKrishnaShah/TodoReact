@@ -19,9 +19,9 @@ function App() {
         <ListTasks />
         </Col>
         <Toastalert />
-
       </Row>
     </Container>
+    
     </TaskStates>
     </>
   );
