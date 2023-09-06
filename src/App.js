@@ -1,27 +1,24 @@
 import './App.css';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Title from "./Components/Title"
-import AddTask from './Components/AddTask';
-import ListTasks from './Components/ListTasks';
 import TaskStates from './Context/TaskStates';
 import Toastalert from './Components/Toastalert';
+import Navbar from './Components/Navbar';
+import { Routes, Route } from "react-router-dom";
+import MainTask from "./Components/MainTask";
+import Login from './Components/Login';
+import Signup from './Components/Signup';
 
 function App() {
   return (
     <>
     <TaskStates>
-    <Container className='text-center'>
-      <Row>
-        <Col md={{ span: 6, offset: 3 }}><Title title = "TODO App" />
-        <AddTask key = "New" Heading = "Add new Todo?" Placeholder = "E.g Do Laundary" ButtonName = "Add the Task" type = "task"/>
-        <ListTasks />
-        </Col>
+      <Navbar />
         <Toastalert />
-      </Row>
-    </Container>
-    
+        <Routes>
+        <Route exact path="/" element={<Login/>} />
+        <Route exact path="/login" element={<Login />} />
+          <Route exact path="/signup" element={<Signup />} />
+          <Route exact path="*" element={<MainTask/>} />
+        </Routes>
     </TaskStates>
     </>
   );

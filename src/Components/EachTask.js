@@ -5,7 +5,7 @@ import { Accordion } from 'react-bootstrap';
 import { useState } from 'react';
 import taskcontext from '../Context/TaskContext';
 
-function EachTask({task, index, taskid}) {
+function EachTask({task, index, taskid, taskindex}) {
   const TaskStates = useContext(taskcontext);
     const[done, setDone] = useState(task.status === "completed"?true:false);
   const handlechange = (e)=>{
@@ -42,7 +42,7 @@ function EachTask({task, index, taskid}) {
               </div>
               </Accordion.Header>
             <Accordion.Body>
-              <SubTask subtasks = {task.subtasks} taskid = {taskid}></SubTask>
+              <SubTask subtasks = {task.subtasks} taskid = {taskid} taskindex = {taskindex}></SubTask>
             </Accordion.Body>
           </Accordion.Item>
   )

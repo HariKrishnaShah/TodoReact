@@ -3,7 +3,7 @@ import TaskContext from "./TaskContext";
 
 export default function TaskStates(props) {
     const host = "http://localhost:4000";
-    const at = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjRmNDQyN2U3YzNmOTU3N2NlYzEzMGExIn0sImlhdCI6MTY5MzczMDY2NX0.ssoKZfX1ctE22wpbiF2zyrOL0sI3P1pu4D40I674iB4";
+    const at = localStorage.getItem('token');
     const[toast, setToast] = useState();
     const[tasks, setTasks] = useState();
     //Toast
@@ -38,15 +38,18 @@ const fetchTask = async()=>{
 // Add tasks
 
 const taskadd = async(newtask)=>{
-    await fetch(`${host}/task/addtask`,
+    let tobj = await fetch(`${host}/task/addtask`,
     {
         method: "POST",
     headers: {
       "Content-Type": "application/json",
       "authToken":at
     },
-    body: JSON.stringify(newtask),
+    body:JSON.stringify(newtask),
     });
+    let newtid = await tobj.json();
+    return (newtid);
+    
 }
 
 // Add Subtask

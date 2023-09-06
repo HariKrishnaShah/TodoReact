@@ -4,7 +4,7 @@ import SubTaskItem from './SubTaskItem';
 import AddTask from './AddTask';
 
 
-function SubTask({subtasks, taskid}) {
+function SubTask({subtasks, taskid, taskindex}) {
 
   return (
     <>
@@ -17,7 +17,7 @@ function SubTask({subtasks, taskid}) {
       })
     ):<Alertbar Msg = "No subtasks found" Variant="danger" />}
     <div className='my-2 mx-5'>
-      <span><AddTask key = {taskid} Placeholder = "Add sub task" taskid = {taskid} type = "subtask" ButtonName="Add the Task" Heading = "Add new subtask" /></span>
+      <span><AddTask key = {taskid} taskindex = {taskindex} Placeholder = "Add sub task" taskid = {taskid} type = "subtask" ButtonName="Add the Task" Heading = "Add new subtask" /></span>
     </div>
     </>
   )
