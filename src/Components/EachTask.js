@@ -10,14 +10,28 @@ function EachTask({task, index, taskid}) {
     const[done, setDone] = useState(task.status === "completed"?true:false);
   const handlechange = (e)=>{
     setDone(e.target.checked);
+    let newtask = JSON.parse(JSON.stringify(TaskStates.tasks));
+        let taskindex =0;
+        newtask.find((task, taskind)=>{
+            if(task._id === taskid)
+            {
+                taskindex = taskind;
+            }
+            return 0;
+        })
+        TaskStates.taskupdate(taskid, task);
     if(e.target.checked === true)
     {
+      for(let i = 0; i<newtask[taskindex].subtasks.length; i++)
+      {
+        newtask[taskindex].subtasks[i].status = "completed";
+      }
+      TaskStates.setTasks(newtask);
       TaskStates.triggerToast("Task updated as completed ");
     }
     else{
       TaskStates.triggerToast("Task updated as pending ");
     }
-    
   }
   return (
     <Accordion.Item eventKey={index.toString()}>

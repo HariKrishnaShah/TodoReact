@@ -16,6 +16,7 @@ function AddTask({ButtonName, Heading, Placeholder, taskid, type}) {
     if(type === "task")
     {
       setTasks(tasks.concat({title:item, status:"pending" , subtasks:[]}));
+      TaskStates.taskadd({title:item, status:"pending" , subtasks:[]});
       TaskStates.triggerToast("New Task Added: " + item);
     }
     else if(type === "subtask")
@@ -33,6 +34,7 @@ function AddTask({ButtonName, Heading, Placeholder, taskid, type}) {
       const newsubtask = {_id:lengthofsubtask, title:item, status:"pending"};
       newtask[indexoftask].subtasks.push(newsubtask);
       setTasks(newtask);
+      TaskStates.subtaskAdd({taskid:taskid,title:item, status:"pending" });
       TaskStates.triggerToast("New sub task Added: " + item);
     }
   }

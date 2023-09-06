@@ -2,6 +2,8 @@ import React, { useState} from 'react'
 import TaskContext from "./TaskContext";
 
 export default function TaskStates(props) {
+    const host = "http://localhost:4000";
+    const at = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjRmNDQyN2U3YzNmOTU3N2NlYzEzMGExIn0sImlhdCI6MTY5MzczMDY2NX0.ssoKZfX1ctE22wpbiF2zyrOL0sI3P1pu4D40I674iB4";
     const[toast, setToast] = useState();
     const[tasks, setTasks] = useState();
     //Toast
@@ -18,10 +20,78 @@ export default function TaskStates(props) {
         setToast(null);
     }
 
+//Fetch all tasks
+const fetchTask = async()=>{
+    let alltasks = await fetch(`${host}/task/viewtasks`,
+    {
+        method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "authToken":at
+    }
+    });
+    let alltask = await alltasks.json();
+    setTasks(alltask);
+
+}
+
+// Add tasks
+
+const taskadd = async(newtask)=>{
+    await fetch(`${host}/task/addtask`,
+    {
+        method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "authToken":at
+    },
+    body: JSON.stringify(newtask),
+    });
+}
+
+// Add Subtask
+
+const subtaskAdd = async(subtask)=>{
+    await fetch(`${host}/subtask/addsubtask`,
+    {
+        method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "authToken":at
+    },
+    body: JSON.stringify(subtask),
+    });
+
+}
+
+
+// Update Subtask
+const subtaskUpdate = async(subtaskid)=>
+{
+    await fetch(`${host}/subtask/updatesubtask`,
+    {
+        method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      "authToken":at
+    },
+    body: JSON.stringify({subtaskid:subtaskid}),
+    });
+
+}
+
     //Delete Subtask
-    const deletesubtask = (subtaskid, taskid)=>{
+    const deletesubtask = async (subtaskid, taskid)=>{
+        await fetch(`${host}/subtask/deletesubtask`,
+    {
+        method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      "authToken":at
+    },
+    body: JSON.stringify({subtaskid:subtaskid}),
+    });
         let newtask = JSON.parse(JSON.stringify(tasks));
-        console.log("The old arrays are " + newtask.toString());
         let taskindex =0;
         let subtaskindex = 0;
         newtask.find((task, taskind)=>{
@@ -41,12 +111,39 @@ export default function TaskStates(props) {
             if (newtask.length > 0) {
             newtask[taskindex].subtasks.splice(subtaskindex, 1);
           }
-        console.log("The new arrays are " + newtask.toString());
-        setTasks(newtask);
+        setTasks(newtask);   
+    }
+
+    //Update Task
+
+    const taskupdate = async(taskid, task)=>{
+        await fetch(`${host}/task/updatetask`,
+    {
+        method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      "authToken":at
+    },
+    body: JSON.stringify({taskid:taskid}),
+    });
+
+    for(let i = 0; i<task.subtasks.length; i++)
+    {
+        await fetch(`${host}/subtask/updatesubtask`,
+    {
+        method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      "authToken":at
+    },
+    body: JSON.stringify({subtaskid:task.subtasks[i]._id, markasdone:"yes"}),
+    });
+
+    }
 
     }
   return (
-    <TaskContext.Provider value = {{triggerToast, toast, closeToast, tasks, setTasks, deletesubtask}} >
+    <TaskContext.Provider value = {{triggerToast, toast, closeToast, tasks, setTasks, deletesubtask, fetchTask, taskadd, subtaskUpdate, subtaskAdd, taskupdate}} >
     {props.children}
     </TaskContext.Provider>
   )

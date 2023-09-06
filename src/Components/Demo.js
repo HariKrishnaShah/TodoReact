@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 
 function Demo() {
-    const[books, setBooks] = useState([{id:5, title:"Friend", pages:450}, {id:6, title:"Enemies", pages:400}]);
+    
     const[text, setText] = useState("");
     const [color, setColor] = useState("green");
     const [car, setCar] = useState({
@@ -29,7 +29,7 @@ function Demo() {
         setText(e.target.value);
         document.getElementById("ans").innerHTML = text;
     }
-
+    const[books, setBooks] = useState([{id:5, title:"Friend", pages:450}, {id:6, title:"Enemies", pages:400}]);
     const changeb = (id)=>{
         const bookid = id;
         const newbook = JSON.parse(JSON.stringify(books));

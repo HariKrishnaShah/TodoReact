@@ -6,9 +6,9 @@ import taskcontext from '../Context/TaskContext';
 
 function ListTasks() {
   const TaskStates = useContext(taskcontext);
-  const {tasks, setTasks} = TaskStates;
+  const {tasks} = TaskStates;
   useEffect(()=>{
-    setTasks([{_id: 1, title: "Cook", status:"pending", subtasks: [{_id: 1, title: "marinate", status:"completed"}, {_id: 2, title: "boil", status:"pending"}]}, {_id: 2, title: "Play", status:"pending",  subtasks: [{_id: 1, title: "basketball", status:"completed"}, {_id: 2, title: "tennis", status: "completed"}]}, {_id: 3, title: "Teach friends", status:"completed",  subtasks:[]}])
+    TaskStates.fetchTask();
   }, // eslint-disable-next-line
   [])
   
